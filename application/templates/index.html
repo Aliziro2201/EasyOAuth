@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TajanApplication • All-in-One Workspace</title>
+  <link rel="stylesheet" href="{{ url_for('static' , filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static' , filename='css/all.min.css') }}">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <!-- App Name -->
+      <a href="#" class="logo">
+        <span class="logo-icon">◆</span>
+        TajanApplication
+      </a>
+      
+      <!-- Menu Items -->
+      <nav class="nav-menu" id="navMenu">
+        <a href="#features">Features</a>
+        <a href="#why-us">Why Us</a>
+        <a href="#showcase">Showcase</a>
+        <a href="{{ url_for('login') }}" class="nav-login">Sign In</a>
+        <a href="{{ url_for('login') }}" class="nav-cta">Get Started</a>
+      </nav>
+      
+      <!-- Mobile Menu Toggle -->
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-container">
+      <div class="hero-badge">
+        <span>🚀 Now in Public Beta</span>
+      </div>
+      
+      <h1 class="hero-title">
+        Your All-in-One Workspace for
+        <span class="gradient-text">Notes, Tasks & Teams</span>
+      </h1>
+      
+      <p class="hero-description">
+        TajanApplication brings your notes, documents, tasks, and team collaboration 
+        into one powerful workspace. Write, plan, organize, and get more done together.
+      </p>
+      
+      <div class="hero-actions">
+        <a href="{{ url_for('login') }}" class="btn-primary">
+          Get Started Free
+          <span class="btn-arrow">→</span>
+        </a>
+        <a href="#showcase" class="btn-secondary">
+          See How It Works
+        </a>
+      </div>
+      
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number">10K+</span>
+          <span class="stat-label">Active Users</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">50K+</span>
+          <span class="stat-label">Notes Created</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">4.9</span>
+          <span class="stat-label">User Rating</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Hero Background Shapes -->
+    <div class="hero-shape shape-1"></div>
+    <div class="hero-shape shape-2"></div>
+    <div class="hero-shape shape-3"></div>
+  </section>
+
+  <!-- App Showcase Section -->
+  <section class="showcase" id="showcase">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>See TajanApplication in Action</h2>
+        <p>A clean, intuitive workspace designed for the way you think and work.</p>
+      </div>
+      
+      <div class="showcase-mockup">
+        <div class="mockup-frame">
+          <div class="mockup-toolbar">
+            <div class="mockup-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="mockup-title">Workspace — Project Alpha</div>
+          </div>
+          <div class="mockup-content">
+            <div class="mockup-sidebar">
+              <div class="mockup-sidebar-item active">📝 Notes</div>
+              <div class="mockup-sidebar-item">📋 Tasks</div>
+              <div class="mockup-sidebar-item">📚 Knowledge Base</div>
+              <div class="mockup-sidebar-item">👥 Team</div>
+              <div class="mockup-sidebar-item">📊 Dashboard</div>
+            </div>
+            <div class="mockup-main">
+              <div class="mockup-note">
+                <div class="mockup-note-title">📄 Project Overview</div>
+                <div class="mockup-note-text">
+                  Welcome to your workspace! Here you can write notes, create to-do lists, 
+                  build a knowledge base, and collaborate with your team in real-time. 
+                  Everything is organized, searchable, and accessible from any device.
+                </div>
+                <div class="mockup-checkbox">
+                  <span class="checkbox checked">✓</span> Design new homepage layout
+                </div>
+                <div class="mockup-checkbox">
+                  <span class="checkbox checked">✓</span> Set up team workspace
+                </div>
+                <div class="mockup-checkbox">
+                  <span class="checkbox">○</span> Review project milestones
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="section-container">
+      <div class="section-header">
+        <h2>Everything You Need to Stay Productive</h2>
+        <p>Powerful features designed to help you capture ideas, manage projects, and collaborate effectively.</p>
+      </div>
+      
+      <div class="features-grid">
+        <!-- Feature 1: Notes -->
+        <div class="feature-card">
+          <div class="feature-icon">📝</div>
+          <h3>Smart Note-Taking</h3>
+          <p>Create rich, structured notes with support for text, images, code blocks, and more. Format your content with an intuitive editor.</p>
+        </div>
+        
+        <!-- Feature 2: Organization -->
+        <div class="feature-card">
+          <div class="feature-icon">📂</div>
+          <h3>Document Organization</h3>
+          <p>Organize your documents with folders, tags, and nested pages. Find anything instantly with powerful search.</p>
+        </div>
+        
+        <!-- Feature 3: Tasks -->
+        <div class="feature-card">
+          <div class="feature-icon">✅</div>
+          <h3>Task Management</h3>
+          <p>Create to-do lists, set deadlines, assign tasks, and track progress. Turn your notes into actionable items.</p>
+        </div>
+        
+        <!-- Feature 4: Knowledge Base -->
+        <div class="feature-card">
+          <div class="feature-icon">📚</div>
+          <h3>Knowledge Base</h3>
+          <p>Build a centralized knowledge base for your team. Document processes, share insights, and keep everyone informed.</p>
+        </div>
+        
+        <!-- Feature 5: Collaboration -->
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3>Team Collaboration</h3>
+          <p>Work together in real-time. Share pages, leave comments, and collaborate with your team from anywhere.</p>
+        </div>
+        
+        <!-- Feature 6: Sync -->
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>Cross-Platform Sync</h3>
+          <p>Access your workspace from any device. Your notes and tasks sync automatically across web, desktop, and mobile.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="why-us" id="why-us">
+    <div class="section-container">
+      <div class="why-us-grid">
+        <div class="why-us-content">
+          <h2>Why Choose TajanApplication?</h2>
+          <p class="why-us-subtitle">
+            We built TajanApplication to be the workspace that adapts to you, not the other way around.
+          </p>
+          
+          <div class="why-us-points">
+            <div class="why-point">
+              <span class="why-point-icon">🎯</span>
+              <div>
+                <h4>All-in-One Solution</h4>
+                <p>Replace multiple tools with one unified workspace for notes, tasks, and collaboration.</p>
+              </div>
+            </div>
+            
+            <div class="why-point">
+              <span class="why-point-icon">⚡</span>
+              <div>
+                <h4>Fast & Responsive</h4>
+                <p>Built for speed with instant loading, quick search, and offline support.</p>
+              </div>
+            </div>
+            
+            <div class="why-point">
+              <span class="why-point-icon">🔒</span>
+              <div>
+                <h4>Secure by Design</h4>
+                <p>Your data is encrypted and protected. We take privacy and security seriously.</p>
+              </div>
+            </div>
+            
+            <div class="why-point">
+              <span class="why-point-icon">🎨</span>
+              <div>
+                <h4>Beautiful & Customizable</h4>
+                <p>A clean, modern interface that you can personalize to match your workflow.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="why-us-visual">
+          <div class="visual-card">
+            <div class="visual-card-header">
+              <span>✦ Productivity Score</span>
+            </div>
+            <div class="visual-card-body">
+              <div class="score-bar">
+                <div class="score-label">Efficiency</div>
+                <div class="score-track">
+                  <div class="score-fill" style="width: 95%;"></div>
+                </div>
+                <div class="score-value">95%</div>
+              </div>
+              <div class="score-bar">
+                <div class="score-label">Organization</div>
+                <div class="score-track">
+                  <div class="score-fill" style="width: 88%;"></div>
+                </div>
+                <div class="score-value">88%</div>
+              </div>
+              <div class="score-bar">
+                <div class="score-label">Collaboration</div>
+                <div class="score-track">
+                  <div class="score-fill" style="width: 92%;"></div>
+                </div>
+                <div class="score-value">92%</div>
+              </div>
+              <div class="score-bar">
+                <div class="score-label">Satisfaction</div>
+                <div class="score-track">
+                  <div class="score-fill" style="width: 97%;"></div>
+                </div>
+                <div class="score-value">97%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="section-container">
+      <div class="cta-card">
+        <h2>Ready to Transform Your Workflow?</h2>
+        <p>Join thousands of productive teams already using TajanApplication. Start free, no credit card required.</p>
+        <div class="cta-actions">
+          <a href="{{ url_for('login') }}" class="btn-primary btn-large">
+            Get Started Free
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="#features" class="btn-ghost">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="#" class="footer-logo">
+          <span class="logo-icon">◆</span>
+          TajanApplication
+        </a>
+        <p>All-in-one workspace for notes, tasks, and team collaboration.</p>
+      </div>
+      
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Product</h4>
+          <a href="#features">Features</a>
+          <a href="#showcase">Showcase</a>
+          <a href="#why-us">Why Us</a>
+        </div>
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <a href="#">Blog</a>
+          <a href="#">Help Center</a>
+          <a href="#">API</a>
+        </div>
+        <div class="footer-column">
+          <h4>Connect</h4>
+
+           <a href="#" id="footerGitHubLink"><i class="fab fa-github"></i> GitHub</a>
+           <a href="#" id="footerTelegramLink"><i class="fab fa-telegram"></i> Telegram</a>
+          <a href="#" id="footerBaleLink"><i class="fas fa-comment"></i> Iranian Messenger</a>
+          <!-- Donation Link - REPLACE href -->
+          <a href="#" id="footerDonationLink"><i class="fas fa-hand-holding-heart"></i> Support Us</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>Made by AliZiro</p>
+      <p>© 2024 TajanApplication. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static' , filename='js/script.js') }}"></script>
+</body>
+</html>

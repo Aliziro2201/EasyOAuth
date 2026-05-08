@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TajanApplication • Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static' , filename='css/dashboard.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static' , filename='css/all.min.css') }}">
+
+</head>
+<body>
+  <!-- Fixed Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <!-- App Name -->
+      <a href="/" class="logo">
+        <span class="logo-icon">◆</span>
+        TajanApplication
+      </a>
+      <nav class="nav-links">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('dashboard') }}" class="active">Dashboard</a>
+        <a href="#" id="logoutButton" class="logout-link">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Dashboard Main Content -->
+  <main class="dashboard-main">
+    <div class="dashboard-container">
+      <!-- Page Header -->
+      <div class="dashboard-header">
+        <h1>User Dashboard</h1>
+        <p>Your account information</p>
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-state" id="loadingState">
+        <div class="spinner"></div>
+        <p>Loading user data...</p>
+      </div>
+
+      <!-- Error State -->
+      <div class="error-state" id="errorState" style="display: none;">
+        <div class="error-icon">⚠️</div>
+        <h2>Failed to Load Data</h2>
+        <p id="errorMessage">Unable to fetch user information. Please try again.</p>
+        <button class="retry-button" id="retryButton">🔄 Retry</button>
+      </div>
+
+      <!-- User Info Card -->
+      <div class="user-card" id="userCard" style="display: none;">
+        <!-- User Avatar & Name -->
+        <div class="user-header">
+          <div class="user-avatar" id="userAvatar">
+            <span id="userInitials">U</span>
+          </div>
+          <div class="user-title">
+            <h2 id="displayName">-</h2>
+            <span class="user-flag" id="userFlag">-</span>
+          </div>
+        </div>
+
+        <!-- User Info Grid -->
+        <div class="user-info-grid">
+          <!-- Name -->
+          <div class="info-item">
+            <div class="info-label">
+              <span class="label-icon">👤</span>
+              Name
+            </div>
+            <div class="info-value" id="userName">-</div>
+          </div>
+
+          <!-- Username -->
+          <div class="info-item">
+            <div class="info-label">
+              <span class="label-icon">📧</span>
+              Username
+            </div>
+            <div class="info-value" id="userUsername">-</div>
+          </div>
+
+          <!-- Email -->
+          <div class="info-item">
+            <div class="info-label">
+              <span class="label-icon">✉️</span>
+              Email
+            </div>
+            <div class="info-value" id="userEmail">-</div>
+          </div>
+
+          <!-- Password -->
+          <div class="info-item">
+            <div class="info-label">
+              <span class="label-icon">🔒</span>
+              Password
+            </div>
+            <div class="info-value password-value">
+              <span id="userPassword">-</span>
+              <button class="toggle-password-btn" id="togglePasswordBtn" title="Show/Hide Password">
+                👁️
+              </button>
+            </div>
+          </div>
+
+          <!-- Age -->
+          <div class="info-item">
+            <div class="info-label">
+              <span class="label-icon">🎂</span>
+              Age
+            </div>
+            <div class="info-value" id="userAge">-</div>
+          </div>
+
+          <!-- Flag -->
+          <div class="info-item">
+            <div class="info-label">
+              <span class="label-icon">🚩</span>
+              Flag
+            </div>
+            <div class="info-value flag-value">
+              <span id="userFlagValue">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Footer -->
+        <div class="card-footer">
+          <button class="refresh-button" id="refreshButton">
+            🔄 Refresh Data
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-made">Made by AliZiro</div>
+    <div class="footer-links">
+           <a href="#" id="footerGitHubLink"><i class="fab fa-github"></i> GitHub</a>
+           <a href="#" id="footerTelegramLink"><i class="fab fa-telegram"></i> Telegram</a>
+           <a href="#" id="footerBaleLink"><i class="fas fa-comment"></i> Iranian Messenger</a>
+          <!-- Donation Link - REPLACE href -->
+          <a href="#" id="footerDonationLink"><i class="fas fa-hand-holding-heart"></i> Support Us</a>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static' , filename='js/dashboard.js') }}"></script>
+</body>
+</html>

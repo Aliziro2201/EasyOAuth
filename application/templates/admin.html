@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Link Sender</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.5;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #86868b;
+      margin-bottom: 2rem;
+    }
+
+    /* ---------- input ---------- */
+    .input-group {
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: #1d1d1f;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e5e5ea;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .input-group input:focus {
+      border-color: #0071e3;
+      box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.12);
+    }
+
+    .input-error {
+      font-size: 0.78rem;
+      color: #ff3b30;
+      margin-top: 0.3rem;
+      display: none;
+    }
+
+    /* ---------- button ---------- */
+    .btn-send {
+      width: 100%;
+      padding: 0.8rem;
+      background: #0071e3;
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      font-family: inherit;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-send:hover {
+      background: #0077ed;
+      box-shadow: 0 4px 14px rgba(0, 113, 227, 0.28);
+    }
+
+    .btn-send:active {
+      transform: scale(0.97);
+    }
+
+    .btn-send:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* button loader */
+    .btn-loader {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top: 2px solid #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .btn-text { display: inline; }
+    .btn-send.loading .btn-text { display: none; }
+    .btn-send.loading .btn-loader { display: block; }
+
+    /* ---------- result message ---------- */
+    .result-box {
+      margin-top: 1.5rem;
+      padding: 1rem 1.2rem;
+      border-radius: 14px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      display: none;
+      animation: fadeSlideIn 0.4s ease;
+    }
+
+    .result-box.success {
+      background: #e8f8ed;
+      color: #1a7d3a;
+      border: 1px solid #b8e6c8;
+      display: block;
+    }
+
+    .result-box.error {
+      background: #fde8e8;
+      color: #b91c1c;
+      border: 1px solid #f5c6c6;
+      display: block;
+    }
+
+    .result-icon {
+      font-size: 1.3rem;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .pulse-anim {
+      animation: pulse 0.5s ease;
+    }
+
+    /* ---------- responsive ---------- */
+    @media (max-width: 500px) {
+      .container {
+        padding: 1.8rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📎 Send Link</h1>
+    <p class="subtitle">Enter a link to send for review<br><b>Hint: The admin sends a POST request.</b></p>
+
+    <!-- input field -->
+    <div class="input-group">
+      <label for="linkInput">Link URL</label>
+      <input
+        type="url"
+        id="linkInput"
+        placeholder="https://example.com/malicious"
+        autocomplete="off"
+      >
+      <span class="input-error" id="inputError">Please enter a valid URL</span>
+    </div>
+
+    <!-- send button -->
+    <button class="btn-send" id="sendButton">
+      <span class="btn-text">Send Link</span>
+      <div class="btn-loader"></div>
+    </button>
+
+    <!-- result message area -->
+    <div class="result-box" id="resultBox">
+      <span class="result-icon" id="resultIcon"></span>
+      <span id="resultMessage"></span>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ============================================
+      // CONFIGURATION – edit these values
+      // ============================================
+      const CONFIG = {
+        // Backend endpoint that receives the link
+        endpoint: '/admin/link',
+
+        // Request method
+        method: 'POST',
+
+        // Headers
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+        // How to format the request body
+        formatBody: function(link) {
+          return JSON.stringify({ link: link });
+        },
+
+        // How to check if response indicates success
+        checkSuccess: function(responseData, statusCode) {
+          // Check for success field, or HTTP status
+          return responseData.success === true || statusCode === 200;
+        },
+
+        // How to extract message from response
+        extractMessage: function(responseData) {
+          return responseData.message || 'Unknown response';
+        },
+      };
+      // ============================================
+
+      // DOM elements
+      var linkInput = document.getElementById('linkInput');
+      var inputError = document.getElementById('inputError');
+      var sendButton = document.getElementById('sendButton');
+      var resultBox = document.getElementById('resultBox');
+      var resultIcon = document.getElementById('resultIcon');
+      var resultMessage = document.getElementById('resultMessage');
+
+      // Hide result box
+      function hideResult() {
+        resultBox.className = 'result-box';
+        resultBox.style.display = 'none';
+      }
+
+      // Show result
+      function showResult(type, icon, message) {
+        resultBox.className = 'result-box ' + type;
+        resultBox.style.display = 'block';
+        resultIcon.textContent = icon;
+        resultMessage.textContent = message;
+
+        // Pulse animation on success
+        if (type === 'success') {
+          resultBox.classList.add('pulse-anim');
+          setTimeout(function() {
+            resultBox.classList.remove('pulse-anim');
+          }, 500);
+        }
+      }
+
+      // Validate URL
+      function isValidUrl(str) {
+        try {
+          var url = new URL(str);
+          return url.protocol === 'http:' || url.protocol === 'https:';
+        } catch (e) {
+          return false;
+        }
+      }
+
+      // Set loading state
+      function setLoading(isLoading) {
+        if (isLoading) {
+          sendButton.classList.add('loading');
+          sendButton.disabled = true;
+        } else {
+          sendButton.classList.remove('loading');
+          sendButton.disabled = false;
+        }
+      }
+
+      // Send link to backend
+      async function sendLink(link) {
+        try {
+          var body = CONFIG.formatBody(link);
+
+          var response = await fetch(CONFIG.endpoint, {
+            method: CONFIG.method,
+            headers: CONFIG.headers,
+            body: body,
+          });
+
+          var responseData;
+          var contentType = response.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            responseData = await response.json();
+          } else {
+            var text = await response.text();
+            try {
+              responseData = JSON.parse(text);
+            } catch (e) {
+              responseData = { message: text };
+            }
+          }
+
+          var isSuccess = CONFIG.checkSuccess(responseData, response.status);
+          var message = CONFIG.extractMessage(responseData);
+
+          return { success: isSuccess, message: message };
+
+        } catch (error) {
+          console.error('Request failed:', error);
+          return {
+            success: false,
+            message: 'Network error. Please check your connection and try again.',
+          };
+        }
+      }
+
+      // Handle button click
+      async function handleSend() {
+        hideResult();
+        inputError.style.display = 'none';
+
+        var link = linkInput.value.trim();
+
+        // Validate
+        if (!link) {
+          inputError.textContent = 'Please enter a URL';
+          inputError.style.display = 'block';
+          linkInput.focus();
+          return;
+        }
+
+        if (!isValidUrl(link)) {
+          inputError.textContent = 'Please enter a valid URL (http:// or https://)';
+          inputError.style.display = 'block';
+          linkInput.focus();
+          return;
+        }
+
+        // Send
+        setLoading(true);
+
+        var result = await sendLink(link);
+
+        setLoading(false);
+
+        if (result.success) {
+          showResult('success', '✅', 'Admin click to link and work');
+        } else {
+          showResult('error', '❌', result.message);
+        }
+      }
+
+      // Event listeners
+      sendButton.addEventListener('click', handleSend);
+
+      linkInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          handleSend();
+        }
+      });
+
+      linkInput.addEventListener('input', function() {
+        inputError.style.display = 'none';
+        hideResult();
+      });
+
+    })();
+  </script>
+</body>
+</html>
