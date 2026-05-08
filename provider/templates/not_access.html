@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TajanProvider • Access Denied</title>
+  <style>
+    /* Embedded CSS for single-file simplicity */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-dark: #0a0a0f;
+      --bg-darker: #050508;
+      --card-bg: rgba(20, 20, 30, 0.8);
+      --primary-blue: #3b82f6;
+      --primary-purple: #8b5cf6;
+      --primary-red: #ef4444;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --border-light: rgba(255, 255, 255, 0.1);
+      --glow-blue: rgba(59, 130, 246, 0.3);
+      --glow-red: rgba(239, 68, 68, 0.3);
+      --gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      --radius-xl: 20px;
+      --shadow-card: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-dark);
+      background-image: radial-gradient(circle at 20% 10%, rgba(239,68,68,0.06) 0%, transparent 35%),
+                        radial-gradient(circle at 80% 70%, rgba(59,130,246,0.05) 0%, transparent 40%);
+      color: var(--text-primary);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .denied-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+      max-width: 480px;
+      width: 100%;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .denied-icon {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      display: block;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.85; }
+    }
+
+    .denied-card h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: #f87171;
+    }
+
+    .denied-card p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .login-button {
+      display: inline-block;
+      background: var(--gradient-primary);
+      color: #ffffff;
+      text-decoration: none;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 32px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+    }
+
+    .login-button:hover {
+      opacity: 0.9;
+      box-shadow: 0 0 20px var(--glow-blue);
+      transform: translateY(-1px);
+    }
+
+    .login-button:active {
+      transform: scale(0.98);
+    }
+
+    .home-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-bottom: 1px dotted rgba(148, 163, 184, 0.4);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .home-link:hover {
+      color: #cbd5e1;
+      border-bottom-color: #cbd5e1;
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+      .denied-card {
+        padding: 2.5rem 1.5rem;
+      }
+      
+      .denied-icon {
+        font-size: 3rem;
+      }
+      
+      .denied-card h1 {
+        font-size: 1.5rem;
+      }
+      
+      .denied-card p {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="denied-card">
+    <!-- Lock icon -->
+    <span class="denied-icon">🔒</span>
+    
+    <!-- Heading -->
+    <h1>Access Denied</h1>
+    
+    <!-- Message - EDIT TEXT HERE -->
+    <p>
+      You need to log in first to access this page.
+      Please sign in with your account to continue.
+    </p>
+    
+    <!-- Login button - EDIT href to your login page -->
+    <a href="{{ url_for('login') }}" class="login-button">Go to Login</a>
+    
+    <!-- Home link - EDIT href to your homepage -->
+    <br>
+    <a href="{{ url_for('index') }}" class="home-link">← Back to Home</a>
+  </div>
+
+  <!-- 
+    ============================================
+    CUSTOMIZATION NOTES:
+    ============================================
+    
+    1. EDIT the heading text in <h1>
+    2. EDIT the message text in <p>
+    3. CHANGE the login button href to your login page URL
+    4. CHANGE the home link href to your homepage URL
+    
+    To use this page:
+    - Redirect users here when they try to access protected pages without login
+    - Example: if (!loggedIn) { window.location.href = 'access-denied.html'; }
+    ============================================
+  -->
+</body>
+</html>

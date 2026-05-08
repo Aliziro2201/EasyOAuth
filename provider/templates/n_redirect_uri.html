@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invalid Redirect • Access Denied</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #fefefe;
+      color: #202124;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.5;
+    }
+
+    .error-card {
+      width: 100%;
+      max-width: 440px;
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 16px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .error-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #5f6368;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .redirect-uri-display {
+      display: inline-block;
+      background: #fef7e0;
+      color: #5f6368;
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      font-family: 'SF Mono', 'Cascadia Code', 'Courier New', monospace;
+      font-size: 0.85rem;
+      word-break: break-all;
+      margin-bottom: 0.5rem;
+      border: 1px solid #f9e6b3;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: #1a73e8;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="error-card">
+    <span class="error-icon">🚫</span>
+    <h1>Invalid Redirect URI</h1>
+    <p>The redirect URI provided is not authorized for this application.</p>
+    
+    <!-- Display the invalid redirect URI if available -->
+    <div class="redirect-uri-display" id="redirectUriDisplay">
+      No redirect URI provided
+    </div>
+
+    <br>
+    <a href="/" class="back-link">← Back to Home</a>
+  </div>
+
+  <script>
+    (function() {
+      // Try to extract redirect_uri from query parameters
+      var params = new URLSearchParams(window.location.search);
+      var redirectUri = params.get('redirect_uri') || params.get('redirect') || null;
+
+      var displayEl = document.getElementById('redirectUriDisplay');
+      if (displayEl && redirectUri) {
+        displayEl.textContent = redirectUri;
+      } else if (displayEl) {
+        displayEl.textContent = 'No redirect URI specified';
+      }
+    })();
+  </script>
+</body>
+</html>

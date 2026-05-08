@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OAuth Consent • Sign in</title>
+  <style>
+    /* ---------- minimal reset & base ---------- */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #fff;
+      color: #202124;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    /* ---------- layout ---------- */
+    .consent-card {
+      width: 100%;
+      max-width: 448px;
+      border: 1px solid #dadce0;
+      border-radius: 16px;
+      padding: 2rem 2rem 1.75rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    /* ---------- header area ---------- */
+    .service-row {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .app-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #f1f3f4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .app-title {
+      font-size: 1.45rem;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .app-domain {
+      font-size: 0.875rem;
+      color: #5f6368;
+      margin-top: 0.15rem;
+    }
+
+    /* ---------- access explanation ---------- */
+    .access-intro {
+      font-size: 0.95rem;
+      color: #3c4043;
+      margin-bottom: 1.5rem;
+      line-height: 1.55;
+    }
+
+    .access-intro strong {
+      font-weight: 600;
+      color: #202124;
+    }
+
+    /* ---------- shared information list ---------- */
+    .shared-list {
+      list-style: none;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .shared-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      color: #3c4043;
+    }
+
+    .shared-list .list-icon {
+      font-size: 1.2rem;
+      width: 24px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* ---------- user account display ---------- */
+    .account-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: #f8f9fa;
+      border: 1px solid #e8eaed;
+      border-radius: 28px;
+      padding: 0.6rem 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .user-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #5b7cfa;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .user-email {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #202124;
+      word-break: break-all;
+    }
+
+    /* ---------- actions ---------- */
+    .actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn {
+      padding: 0.6rem 1.5rem;
+      border-radius: 24px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s, box-shadow 0.15s;
+      font-family: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-cancel {
+      background: #f1f3f4;
+      color: #3c4043;
+    }
+
+    .btn-cancel:hover {
+      background: #e8eaed;
+    }
+
+    .btn-continue {
+      background: #1a73e8;
+      color: #fff;
+    }
+
+    .btn-continue:hover {
+      background: #1765cc;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+
+    /* ---------- footer note ---------- */
+    .footer-note {
+      margin-top: 1.5rem;
+      font-size: 0.78rem;
+      color: #80868b;
+      text-align: center;
+    }
+
+    /* ---------- responsive ---------- */
+    @media (max-width: 500px) {
+      .consent-card {
+        padding: 1.5rem 1.25rem;
+      }
+      .actions {
+        flex-direction: column-reverse;
+        gap: 0.5rem;
+      }
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 
+    ======================================================
+    DYNAMIC DATA – inject via server-side / JavaScript
+    ======================================================
+    - appName        : application display name
+    - appDomain      : application domain / origin
+    - appIcon        : emoji or icon markup (optional)
+    - userEmail      : currently signed-in user email
+    - userInitials   : 1-2 letter initials for avatar
+    - sharedItems    : array of { icon, label } describing shared info
+    - cancelUrl      : URL or JavaScript action for cancel
+    - currentUrl     : full current URL including query string
+    ======================================================
+  -->
+
+  <div class="consent-card">
+    
+    <!-- application identity -->
+    <div class="service-row">
+      <div class="app-icon" aria-hidden="true" id="appIconDisplay">🔑</div>
+      <div>
+        <h1 class="app-title" id="appNameDisplay">Application Name</h1>
+        <p class="app-domain" id="appDomainDisplay">app.example.com</p>
+      </div>
+    </div>
+
+    <!-- explanation -->
+    <p class="access-intro">
+      <strong id="appNameStrong">Application Name</strong> will receive access to:
+    </p>
+
+    <!-- shared information list (injectable) -->
+    <ul class="shared-list" id="sharedListContainer">
+      <!-- filled dynamically -->
+    </ul>
+
+    <!-- user account -->
+    <div class="account-badge">
+      <div class="user-avatar" id="userAvatarDisplay">U</div>
+      <span class="user-email" id="userEmailDisplay">user@example.com</span>
+    </div>
+
+    <!-- action buttons -->
+    <div class="actions">
+      <a href="#" class="btn btn-cancel" id="cancelButton">Cancel</a>
+      
+      <!-- 
+        form posts to current URL including all query parameters
+        action is set dynamically via JavaScript
+      -->
+      <form method="post" id="consentForm" style="display:contents;">
+        <button type="submit" class="btn btn-continue" id="continueButton">Continue</button>
+      </form>
+    </div>
+
+    <p class="footer-note">
+      You can revoke access at any time in your account settings.
+    </p>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ======================================================
+      // CONFIGURABLE VALUES – inject from server or edit here
+      // ======================================================
+      const CONSENT_DATA = {
+        // Application info
+        appName: 'TajanApplication',
+        appDomain: 'TajanApplication.com:5000',
+        appIcon: '🔑',                          // emoji or html
+
+        // Current user
+        userEmail: '{{ info.email }}',
+        userInitials: 'AS',
+
+        // Information being shared (order matters)
+        sharedItems: [
+          { icon: '👤', label: '{{ info.scope }}' },
+          { icon: '✉️', label: 'Email address' },
+          { icon: '📅', label: 'Basic account information' }
+        ],
+
+        // Cancel behaviour – change to a URL string or leave function
+        cancelAction: function() {
+          // Default: go back to previous page
+          if (document.referrer && document.referrer !== window.location.href) {
+            window.location.href = document.referrer;
+          } else {
+            // fallback – close window or redirect to home
+            window.location.href = '/';
+          }
+        }
+      };
+      // ======================================================
+
+      // ---------- helper: safely set text content ----------
+      function setText(id, text) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      }
+
+      // ---------- render shared items ----------
+      function renderSharedItems(items) {
+        const container = document.getElementById('sharedListContainer');
+        if (!container) return;
+
+        container.innerHTML = '';
+        items.forEach(function(item) {
+          const li = document.createElement('li');
+          li.innerHTML = '<span class="list-icon">' + (item.icon || '•') + '</span>' +
+                         '<span>' + item.label + '</span>';
+          container.appendChild(li);
+        });
+      }
+
+      // ---------- build and apply dynamic data ----------
+      function applyData() {
+        // Application identity
+        setText('appNameDisplay', CONSENT_DATA.appName);
+        setText('appDomainDisplay', CONSENT_DATA.appDomain);
+        setText('appNameStrong', CONSENT_DATA.appName);
+
+        const appIconEl = document.getElementById('appIconDisplay');
+        if (appIconEl) appIconEl.textContent = CONSENT_DATA.appIcon;
+
+        // User info
+        setText('userEmailDisplay', CONSENT_DATA.userEmail);
+        setText('userAvatarDisplay', CONSENT_DATA.userInitials);
+
+        // Shared info list
+        renderSharedItems(CONSENT_DATA.sharedItems);
+      }
+
+      // ---------- set form action to current full URL ----------
+      function setFormAction() {
+        const form = document.getElementById('consentForm');
+        if (!form) return;
+
+        // full current URL including query string (preserves all parameters)
+        const queryString = window.location.search;
+        const fullUrl = `/Authorization/OAuth/v2${queryString}`;
+        form.setAttribute('action', fullUrl);
+      }
+
+      // ---------- handle cancel ----------
+      function setupCancel() {
+        const cancelBtn = document.getElementById('cancelButton');
+        if (!cancelBtn) return;
+
+        cancelBtn.addEventListener('click', function(event) {
+          event.preventDefault();
+
+          if (typeof CONSENT_DATA.cancelAction === 'function') {
+            CONSENT_DATA.cancelAction();
+          } else if (typeof CONSENT_DATA.cancelAction === 'string') {
+            window.location.href = CONSENT_DATA.cancelAction;
+          } else {
+            // final fallback
+            window.history.back();
+          }
+        });
+      }
+
+      // ---------- init ----------
+      function init() {
+        applyData();
+        setFormAction();
+        setupCancel();
+      }
+
+      // Run on DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+
+</body>
+</html>

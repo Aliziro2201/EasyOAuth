@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TajanProvider • Login</title>
+  <link rel="stylesheet" href="{{ url_for('static' , filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static' , filename='css/all.min.css') }}">
+</head>
+<body>
+  <!-- Fixed Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <!-- Site name: TajanProvider - EDIT HERE to change -->
+      <a href="{{ url_for('index') }}" class="logo" aria-label="TajanProvider home">TajanProvider</a>
+      <nav class="nav-links">
+        <!-- Login page (active) -->
+        <a href="{{ url_for('login') }}" class="active">Login</a>
+        <!-- Dashboard page -->
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Login Form Section -->
+  <main class="login-main">
+    <div class="login-card">
+      <div class="login-header">
+        <!-- EDIT: Change heading -->
+        <h1>Welcome Back</h1>
+      </div>
+
+      <!-- Login Form - no backend, pure JS validation -->
+      <form id="loginForm" class="login-form" novalidate>
+        <!-- Email or Username field -->
+        <div class="input-group">
+          <label for="username">Email or Username</label>
+          <div class="input-wrapper">
+            <span class="input-icon">👤</span>
+            <input 
+              type="text" 
+              id="username" 
+              name="username" 
+              placeholder="Enter email or username"
+              autocomplete="username"
+              required
+            >
+          </div>
+          <span class="error-message" id="usernameError"></span>
+        </div>
+
+        <!-- Password field -->
+        <div class="input-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              placeholder="Enter password"
+              autocomplete="current-password"
+              required
+            >
+            <button type="button" class="toggle-password" id="togglePassword" aria-label="Show password">
+              👁️
+            </button>
+          </div>
+          <span class="error-message" id="passwordError"></span>
+        </div>
+
+        <!-- Error message display -->
+        <div class="alert-error" id="alertError" style="display: none;">
+          <span class="alert-icon">⚠️</span>
+          <span id="alertMessage"></span>
+        </div>
+
+        <!-- Success message display -->
+        <div class="alert-success" id="alertSuccess" style="display: none;">
+          <span class="alert-icon">✅</span>
+          <span id="successMessage"></span>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn-login" id="loginButton">
+          Sign In
+        </button>
+      </form>
+
+      <!-- Test credentials hint (remove in production) -->
+      <div class="test-hint">
+        <!-- EDIT: Change or remove test credentials display -->
+        <p>💡 credentials: <code>aliziro</code> / <code>123456</code></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <!-- EDIT: Change "Made by" text -->
+    <div class="footer-made">Made by AliZiro</div>
+    <div class="footer-links">
+           <a href="#" id="footerGitHubLink"><i class="fab fa-github"></i> GitHub</a>
+           <a href="#" id="footerTelegramLink"><i class="fab fa-telegram"></i> Telegram</a>
+          <a href="#" id="footerBaleLink">
+          <i class="fas fa-comment"></i> Iranian Messenger
+          </a>
+          <!-- Donation Link - REPLACE href -->
+          <a href="#" id="footerDonationLink"><i class="fas fa-hand-holding-heart"></i> Support Us</a>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static' , filename='js/login.js') }}"></script>
+</body>
+</html>

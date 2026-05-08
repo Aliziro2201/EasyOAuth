@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invalid Request • Access Denied</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #fefefe;
+      color: #202124;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      line-height: 1.5;
+    }
+
+    .error-card {
+      width: 100%;
+      max-width: 460px;
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 16px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .error-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #5f6368;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-box {
+      background: #fef7e0;
+      border: 1px solid #f9e6b3;
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+      font-size: 0.85rem;
+      color: #5f6368;
+    }
+
+    .info-box .label {
+      font-weight: 600;
+      color: #202124;
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+
+    .info-box .value {
+      font-family: 'SF Mono', 'Cascadia Code', 'Courier New', monospace;
+      word-break: break-all;
+      color: #5f6368;
+    }
+
+    .info-box .missing {
+      color: #d93025;
+      font-style: italic;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: #1a73e8;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="error-card">
+    <span class="error-icon">⚠️</span>
+    <h1>Invalid or Missing Parameters</h1>
+    <p>The request is missing required parameters or contains invalid values.</p>
+
+    <div class="info-box">
+      <span class="label">Client ID</span>
+      <span class="value" id="clientIdDisplay">
+        <span class="missing">Not provided or invalid</span>
+      </span>
+    </div>
+
+    <div class="info-box">
+      <span class="label">Scope</span>
+      <span class="value" id="scopeDisplay">
+        <span class="missing">Not provided or invalid</span>
+      </span>
+    </div>
+
+    <a href="/" class="back-link">← Back to Home</a>
+  </div>
+
+  <script>
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+
+      // Extract client_id
+      var clientId = params.get('client_id') || null;
+
+      // Extract scope
+      var scope = params.get('scope') || null;
+
+      // Display client_id
+      var clientIdEl = document.getElementById('clientIdDisplay');
+      if (clientIdEl && clientId) {
+        clientIdEl.textContent = clientId;
+        clientIdEl.classList.remove('missing');
+      }
+
+      // Display scope
+      var scopeEl = document.getElementById('scopeDisplay');
+      if (scopeEl && scope) {
+        scopeEl.textContent = scope;
+        scopeEl.classList.remove('missing');
+      }
+    })();
+  </script>
+</body>
+</html>
