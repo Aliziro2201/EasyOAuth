@@ -17,7 +17,7 @@ We plan to build and publish more vulnerable labs and security challenges so tha
 
 If this project helps you learn, your support would be greatly appreciated and will help us continue developing more educational security labs.
 
-❤️ Support the Project
+# ❤️ Support the Project
 Donate:
 
 https://daramet.com/AliZiro
