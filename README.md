@@ -1,6 +1,44 @@
 # EasyOAuth
 A vulnerable OAuth 2.0 lab demonstrating real-world authorization weaknesses.
 
+In many regions, access to international educational platforms and security training labs is difficult—or sometimes impossible—due to internet restrictions. As a result, many students and security enthusiasts cannot practice real-world labs or improve their hands‑on skills.
+
+EasyOAuth was created to help solve this problem.
+
+The goal of this project is to provide a fully local, offline‑friendly security lab so that students, researchers, and penetration testers can practice OAuth vulnerabilities without needing stable internet access.
+
+By running everything locally, learners can simulate real attack scenarios and understand how a small misconfiguration in OAuth can lead to serious issues such as account takeover.
+
+Of course, this is an early project, and it may contain bugs, limitations, or areas that can be improved. We fully acknowledge this and plan to make future labs more optimized, polished, and professional based on community feedback.
+
+This project is just the beginning.
+
+We plan to build and publish more vulnerable labs and security challenges so that anyone—even with restricted internet—can continue learning and improving their skills.
+
+If this project helps you learn, your support would be greatly appreciated and will help us continue developing more educational security labs.
+
+❤️ Support the Project
+Donate:
+
+https://daramet.com/AliZiro
+
+📡 Follow the Project
+Telegram
+
+https://t.me/TajanSecurity
+
+Rubika
+
+https://rubika.ir/Tajan_Security
+
+Bale
+
+https://ble.ir/Tajan_Security
+
+Your support helps us release more educational security labs for the community.
+
+
+
 # 🛡️ EasyOAuth — OAuth 2.0 Vulnerability Lab
 
 An educational environment demonstrating how insecure OAuth 2.0 implementations can lead to account takeover vulnerabilities.
@@ -198,34 +236,7 @@ http://tajanprovider.com:5959
 
 ---
 
-# 📡 Social Channels
 
-Telegram:
-```text
-https://t.me/TajanSecurity
-```
-
-Rubika:
-```text
-https://rubika.ir/Tajan_Security
-```
-
-Bale:
-```text
-https://ble.ir/Tajan_Security
-```
-
----
-
-# ❤️ Donate
-
-```text
-https://daramet.com/AliZiro
-```
-
-Supporting the project helps create more security labs and educational content.
-
----
 
 
 # ✍️ Author
