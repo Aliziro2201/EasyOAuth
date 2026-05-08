@@ -1,2 +1,234 @@
 # EasyOAuth
 A vulnerable OAuth 2.0 lab demonstrating real-world authorization weaknesses.
+
+# 🛡️ EasyOAuth — OAuth 2.0 Vulnerability Lab
+
+An educational environment demonstrating how insecure OAuth 2.0 implementations can lead to account takeover vulnerabilities.
+
+This lab contains two services:
+
+- Application (Client)
+- OAuth Provider (Authorization Server)
+
+The goal of this project is to simulate a real-world OAuth misconfiguration where an attacker can impersonate the `admin` user without knowing their credentials.
+
+---
+
+# 🧩 Project Architecture
+
+The lab consists of two Flask services running simultaneously:
+
+Application (Client):  
+```text
+http://tajanapplication.com:5000
+```
+
+OAuth Provider:  
+```text
+http://tajanprovider.com:5959
+```
+
+---
+
+# ⚠️ Important Note (Main Vulnerable Point)
+
+The primary vulnerable endpoint in this project is:
+Sent the vulnerable link to the admin at the following address:
+
+```text
+/admin
+```
+
+---
+
+# 📝 Configure Hosts File
+
+To run the lab correctly, add these domains to your hosts file:
+
+```text
+tajanapplication.com
+tajanprovider.com
+```
+
+Both should point to:
+
+```text
+127.0.0.1
+```
+
+## Linux
+
+Edit the hosts file:
+
+```bash
+sudo nano /etc/hosts
+```
+
+Add:
+
+```text
+127.0.0.1 tajanapplication.com
+127.0.0.1 tajanprovider.com
+```
+
+---
+
+## Windows
+
+Open this file as Administrator:
+
+```text
+C:\Windows\System32\drivers\etc\hosts
+```
+
+Add:
+
+```text
+127.0.0.1 tajanapplication.com
+127.0.0.1 tajanprovider.com
+```
+
+---
+
+# 🚀 Automatic Setup (Recommended)
+
+Run:
+
+```bash
+python3 main.py
+```
+
+The launcher automatically:
+
+- Detects your operating system
+- Creates a virtual environment
+- Installs dependencies
+- Asks whether you have access to PyPI
+- Uses a mirror if needed
+- Starts both services
+- Allows shutting down all services using:
+
+```text
+finish
+```
+
+---
+
+# ⚙️ Manual Setup
+
+## 1. Create Virtual Environment
+
+Linux:
+```bash
+python3 -m venv venv
+```
+
+Windows:
+```bash
+python -m venv venv
+```
+
+---
+
+## 2. Activate Virtual Environment
+
+Linux:
+```bash
+source venv/bin/activate
+```
+
+Windows:
+```bash
+venv\Scripts\activate
+```
+
+---
+
+## 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# ❗ If You Cannot Access PyPI
+
+If your network cannot access `pypi.org`, use the mirror below:
+
+```bash
+pip install --trusted-host mirror-pypi.runflare.com -i https://mirror-pypi.runflare.com/simple/ -r requirements.txt
+```
+
+Upgrade pip using the same mirror:
+
+```bash
+pip install --upgrade pip --trusted-host mirror-pypi.runflare.com -i https://mirror-pypi.runflare.com/simple/
+```
+
+---
+
+# ▶️ Run Services
+
+Start Provider:
+
+```bash
+python provider/app.py
+```
+
+Start Application:
+
+```bash
+python application/app.py
+```
+
+---
+
+# 🔗 Service URLs
+
+Application:  
+```text
+http://tajanapplication.com:5000
+```
+
+Provider:  
+```text
+http://tajanprovider.com:5959
+```
+
+---
+
+# 📡 Social Channels
+
+Telegram:
+```text
+https://t.me/TajanSecurity
+```
+
+Rubika:
+```text
+https://rubika.ir/Tajan_Security
+```
+
+Bale:
+```text
+https://ble.ir/Tajan_Security
+```
+
+---
+
+# ❤️ Donate
+
+```text
+https://daramet.com/AliZiro
+```
+
+Supporting the project helps create more security labs and educational content.
+
+---
+
+
+# ✍️ Author
+
+**AliZiro**  
+Security Researcher
