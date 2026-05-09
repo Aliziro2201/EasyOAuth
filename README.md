@@ -246,3 +246,12 @@ http://tajanprovider.com:5959
 
 **AliZiro**  
 Security Researcher
+
+
+### Statement in Support of a Free Internet
+
+> The internet is not just a technical tool; it is the **vital artery** of knowledge, culture, and communication in today's world. Free access to information is the cornerstone of advanced societies and a platform for nurturing talent and innovation.
+>
+> Any form of restriction, filtering, and censorship amounts to closing the gateways to knowledge and hindering progress.
+>
+> As part of the global tech community, we **firmly advocate for the right to free, equal, and uncensored internet access for all the people of Iran and the world**. We hope for a day when no one is deprived of this fundamental right due to geographical or political barriers.
